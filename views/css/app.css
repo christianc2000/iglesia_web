@@ -1,0 +1,66 @@
+nav {
+  background: #861A17;
+}
+
+thead {
+  background: #861A17;
+  color: white;
+}
+
+.card-body {
+  overflow-y: auto;
+}
+
+/* Estilo base para el botón */
+.button-principal {
+  background-color: #861A17;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  /* Bordes curvos */
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  /* Efecto de transición */
+  text-decoration: none;
+  /* Elimina el subrayado */
+  /* display: inline-block; */
+  /* Asegura que el botón se comporte como un elemento en línea */
+}
+
+/* Estilo para el hover del botón */
+.button-principal:hover {
+  background-color: #933723;
+  /* Cambia a otro color en el hover */
+  color: white;
+}
+
+.button-cancelar {
+  background-color: #241910;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  /* Bordes curvos */
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  /* Efecto de transición */
+  text-decoration: none;
+  /* Elimina el subrayado */
+  display: inline-block;
+  /* Asegura que el botón se comporte como un elemento en línea */
+}
+
+/* Estilo para el hover del botón */
+.button-cancelar:hover {
+  background-color: #443528;
+  /* Cambia a otro color en el hover */
+  color: white;
+}
+
+.total-row {
+  background-color: #FFFB6F;
+  /* Cambia el color de fondo a tu elección */
+  color: white;
+  /* Cambia el color del texto si es necesario */
+}
