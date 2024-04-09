@@ -22,7 +22,7 @@ class Actividad
     {
         $list = [];
         $db = Db::getInstance();
-        $req = $db->query('SELECT * FROM actividads ORDER BY updated_at DESC;');
+        $req = $db->query('SELECT * FROM actividads;');
 
         // we create a list of Post objects from the database results
         foreach ($req->fetchAll() as $actividad) {
@@ -47,7 +47,7 @@ class Actividad
         //return new Miembro($miembro['id'], $miembro['fecha_registro_miembro'], $miembro['created_at'], $miembro['updated_at']);
     }
 
-    public static function update($id,$nombre, $fecha, $horaInicio, $horaFiN)
+    public static function update($id,$nombre, $fecha, $horaInicio, $horaFin)
     {
         $db = Db::getInstance();
         $db->beginTransaction(); // Iniciar una transacción para asegurar la integridad de los datos

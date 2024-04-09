@@ -13,8 +13,12 @@ function call($controller, $action)
       break;
     case 'actividades':
       // echo "ENTRAMOS A PERSONAS";
-      $controller = new PersonaController();
+      $controller = new ActividadController();
       break;
+      case 'ministerios':
+        // echo "ENTRAMOS A PERSONAS";
+        $controller = new MinisterioController();
+        break;
   }
 
   $controller->{$action}();
@@ -24,7 +28,8 @@ function call($controller, $action)
 $controllers = array(
   'pages' => ['home', 'error'],
   'personas' => ['index', 'create', 'store', 'update', 'edit', 'delete', 'parentezco', 'storeParentezco', 'deleteParentezco'],
-  'actividades' => ['index']
+  'actividades' => ['index', 'create', 'store', 'edit', 'update', 'delete', 'recaudacion', 'storeRecaudacion', 'deleteRecaudacion', 'asistencia', 'storeAsistencia', 'deleteAsistencia'],
+  'ministerios' => ['index', 'create', 'store', 'edit', 'update', 'delete','show','cargos','storeEncargado','finalizarCargoMinisterio']
 );
 
 if (array_key_exists($controller, $controllers)) {

@@ -40,6 +40,19 @@ class Persona
 
         return $list;
     }
+    public static function allMiembros()
+    {
+        $list = [];
+        $db = Db::getInstance();
+        $req = $db->query("SELECT * FROM personas WHERE personas.tipo='M';");
+
+        // we create a list of Post objects from the database results
+        foreach ($req->fetchAll() as $persona) {
+            $list[] = new Persona($persona['id'], $persona['ci'], $persona['nombre'], $persona['apellido'], $persona['celular'], $persona['direccion'], $persona['correo'], $persona['tipo'], $persona['sexo'], $persona['fecha_nacimiento'], $persona['fecha_registro']);
+        }
+
+        return $list;
+    }
     public static function find($id)
     {
         $db = Db::getInstance();
@@ -205,4 +218,25 @@ class Persona
     //     // $db->commit();
     //     return $list;
     // }
+    public static function allPersonAsistencia($actividad_id)
+    {
+        $list = [];
+        $db = Db::getInstance();
+
+        $query = "SELECT personas.*
+        FROM personas
+        LEFT JOIN asistencias ON personas.id = asistencias.persona_id AND asistencias.actividad_id = :actividad_id
+        WHERE asistencias.actividad_id IS NULL AND personas.tipo = 'M';";
+
+        $req = $db->prepare($query);
+        $req->bindParam(':actividad_id', $actividad_id, PDO::PARAM_INT);
+        $req->execute();
+
+        // Recorremos los resultados de la consulta
+        foreach ($req->fetchAll() as $row) {
+            $list[] = new Persona($row['id'], $row['ci'], $row['nombre'], $row['apellido'], $row['celular'], $row['direccion'], $row['correo'], $row['tipo'], $row['sexo'], $row['fecha_nacimiento'], $row['fecha_registro']);
+        }
+
+        return $list;
+    }
 }
