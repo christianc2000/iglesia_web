@@ -28,15 +28,16 @@ class Cargo
         $db = Db::getInstance();
         // we make sure $id is an integer
         $id = intval($id);
-        $req = $db->prepare("SELECT cargos.*, personas.ci as persona_ci, CONCAT(personas.nombre,' ',personas.apellido) as nombre_persona, ministerios.nombre as nombre_ministerio
-FROM cargos
-INNER JOIN personas ON personas.id = cargos.persona_id
-INNER JOIN ministerios ON ministerios.id=cargos.ministerio_id
-WHERE cargos.fecha_finalizacion IS NULL AND cargos.ministerio_id=:id;");
+        $req = $db->prepare("SELECT cargos.*, personas.ci as persona_ci, CONCAT(personas.nombre,' ',personas.apellido) as persona_nombre, ministerios.nombre as ministerio_nombre, tipo_cargos.nombre as tipo_cargo_nombre
+        FROM cargos
+        INNER JOIN personas ON personas.id = cargos.persona_id
+        INNER JOIN tipo_cargos ON tipo_cargos.id = cargos.tipo_cargo_id
+        INNER JOIN ministerios ON ministerios.id=cargos.ministerio_id
+        WHERE cargos.fecha_finalizacion IS NULL AND cargos.ministerio_id=:id;");
         // the query was prepared, now we replace :id with our actual $id value
         $req->execute(array('id' => $id));
         foreach ($req->fetchAll() as $row) {
-            $list[] =['id'=>$row['id'], 'cargo'=>$row['nombre'], 'fecha_registro'=>$row['fecha_registro'], 'fecha_finalizacion'=>$row['fecha_finalizacion'],'ministerio_id'=>$row['ministerio_id'], 'ministerio_nombre'=>$row['nombre_ministerio'],'persona_id'=> $row['persona_id'],'persona_ci'=>$row['persona_ci'],'persona_nombrecompleto'=> $row['nombre_persona']];
+            $list[] =['id'=>$row['id'], 'cargo'=>$row['nombre'], 'fecha_registro'=>$row['fecha_registro'], 'fecha_finalizacion'=>$row['fecha_finalizacion'],'ministerio_id'=>$row['ministerio_id'], 'ministerio_nombre'=>$row['ministerio_nombre'],'persona_id'=> $row['persona_id'],'persona_ci'=>$row['persona_ci'],'persona_nombrecompleto'=> $row['persona_nombre'],'tipo_cargo_nombre'=>$row['tipo_cargo_nombre']];
         }
 
         return $list;
@@ -48,33 +49,35 @@ WHERE cargos.fecha_finalizacion IS NULL AND cargos.ministerio_id=:id;");
         $db = Db::getInstance();
         // we make sure $id is an integer
         $id = intval($id);
-        $req = $db->prepare("SELECT cargos.*, personas.ci as persona_ci, CONCAT(personas.nombre,' ',personas.apellido) as nombre_persona, ministerios.nombre as nombre_ministerio
-FROM cargos
-INNER JOIN personas ON personas.id = cargos.persona_id
-INNER JOIN ministerios ON ministerios.id=cargos.ministerio_id
-WHERE cargos.fecha_finalizacion IS NOT NULL AND cargos.ministerio_id=:id;");
+        $req = $db->prepare("SELECT cargos.*, personas.ci as persona_ci, CONCAT(personas.nombre,' ',personas.apellido) as persona_nombre, ministerios.nombre as ministerio_nombre, tipo_cargos.nombre as tipo_cargo_nombre
+        FROM cargos
+        INNER JOIN personas ON personas.id = cargos.persona_id
+        INNER JOIN tipo_cargos ON tipo_cargos.id = cargos.tipo_cargo_id
+        INNER JOIN ministerios ON ministerios.id=cargos.ministerio_id
+        WHERE cargos.fecha_finalizacion IS NOT NULL AND cargos.ministerio_id=:id;");
         // the query was prepared, now we replace :id with our actual $id value
         $req->execute(array('id' => $id));
         foreach ($req->fetchAll() as $row) {
-            $list[] =['id'=>$row['id'], 'cargo'=>$row['nombre'], 'fecha_registro'=>$row['fecha_registro'], 'fecha_finalizacion'=>$row['fecha_finalizacion'],'ministerio_id'=>$row['ministerio_id'], 'ministerio_nombre'=>$row['nombre_ministerio'],'persona_id'=> $row['persona_id'],'persona_ci'=>$row['persona_ci'],'persona_nombrecompleto'=> $row['nombre_persona']];
+            $list[] =['id'=>$row['id'], 'cargo'=>$row['nombre'], 'fecha_registro'=>$row['fecha_registro'], 'fecha_finalizacion'=>$row['fecha_finalizacion'],'ministerio_id'=>$row['ministerio_id'], 'ministerio_nombre'=>$row['ministerio_nombre'],'persona_id'=> $row['persona_id'],'persona_ci'=>$row['persona_ci'],'persona_nombrecompleto'=> $row['persona_nombre'],'tipo_cargo_nombre'=>$row['tipo_cargo_nombre']];
         }
 
         return $list;
     }
-    public static function create($cargo, $miembro_id, $ministerio_id)
+    public static function create($tipo_cargo_id, $miembro_id, $ministerio_id,$fecha_registro)
     {
         $db = Db::getInstance();
         $db->beginTransaction(); // Iniciar una transacción para asegurar la integridad de los datos
 
-        $miembroa_id = intval($miembro_id);
-        $miembrob_id = intval($ministerio_id);
+        $miembro_id = intval($miembro_id);
+        $ministerio_id = intval($ministerio_id);
+        $tipo_cargo_id = intval($tipo_cargo_id);
 
         try {
             // CREAR HISTORIAL CARGOS
-            $query = 'INSERT INTO cargos (nombre, persona_id, ministerio_id) VALUES (:nombre, :miembro_id, :ministerio_id)';
+            $query = 'INSERT INTO cargos (fecha_registro,tipo_cargo_id, persona_id, ministerio_id) VALUES (:fecha_registro,:tipo_cargo_id, :miembro_id, :ministerio_id)';
             $req_persona = $db->prepare($query);
-
-            $req_persona->bindParam(':nombre', $cargo);
+            $req_persona->bindParam(':fecha_registro', $fecha_registro);
+            $req_persona->bindParam(':tipo_cargo_id', $tipo_cargo_id);
             $req_persona->bindParam(':miembro_id', $miembro_id);
             $req_persona->bindParam(':ministerio_id', $ministerio_id);
             $req_persona->execute();

@@ -15,24 +15,20 @@
                 <th>CI</th>
                 <th>NOMBRE</th>
                 <th>APELLIDO</th>
-                <th>TIPO</th>
                 <th>CELULAR</th>
                 <th>CORREO</th>
                 <th>REGISTRO</th>
                 <th>OPCIÓN</th>
             </thead>
             <tbody>
-
                 <?php foreach ($personas as $persona) { ?>
                     <tr>
                         <td><?php echo $persona->ci ?></td>
                         <td><?php echo $persona->nombre ?></td>
                         <td><?php echo $persona->apellido ?></td>
-                        <td><?php echo (($persona->tipo=='M')?"Miembro":"Visitante")?></td>
                         <td><?php echo $persona->celular ?></td>
                         <td><?php echo $persona->correo ?></td>
                         <td><?php echo (DateTime::createFromFormat('Y-m-d H:i:s.u', $persona->fecha_registro))->format('Y-m-d H:i:s'); ?></td>
-
                         <td>
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -40,7 +36,7 @@
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                     <li><a class="dropdown-item" href='?controller=personas&action=edit&id=<?php echo $persona->id; ?>'><i class="fa fa-edit"></i> Editar</a></li>
-                                    <li><a class="dropdown-item" href="?controller=personas&action=parentezco&id=<?php echo $persona->id; ?>"><i class="fa fa-layer-group"></i> Parentezco</a></li>
+                                    <li><a class="dropdown-item" href="?controller=personas&action=parentesco&id=<?php echo $persona->id; ?>"><i class="fa fa-layer-group"></i> Parentesco</a></li>
                                     <li><a class="dropdown-item" href='?controller=personas&action=delete&id=<?php echo $persona->id; ?>'><i class="fa fa-trash"></i> Eliminar</a></li>
                                 </ul>
                             </div>

@@ -1,6 +1,7 @@
 <?php
 require_once('models/Ministerio.php');
-require_once('models/Cargo.php'); 
+require_once('models/Cargo.php');
+require_once('models/TipoCargo.php');
 class MinisterioController
 {
     public function index()
@@ -77,30 +78,31 @@ class MinisterioController
             }
         }
     }
-    
+
     public function cargos()
     {
 
         if (!isset($_GET['id'])) //el id del ministerio
             return call('pages', 'error');
-        $miembros = Persona::allMiembros(); //todos los miembros que pueda seleccionar
+        $miembros = Persona::all(); //todos los miembros que pueda seleccionar
         $miembros_con_cargos = Cargo::getMiembrosVigentesMinisterio($_GET['id']); //retorna el historial del ministerio con miembros vigentes que pertenecen a él
         //    print_r($historialv_ministerio);
         //    var_dump($historialv_ministerio[0][1]);
+        $tipo_cargos = TipoCargo::all();
         $miembros_sin_cargos = Cargo::getMiembrosCaducadosMinisterio($_GET['id']); //retorna el historial del ministerio con miembros caducados que pertenecen a él
         $ministerio = Ministerio::find($_GET['id']);
-        require_once('views/ministerios/historial.php');
+        require_once('views/ministerios/cargo.php');
     }
     public function storeEncargado()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $ministerio_id = $_POST['id'];
             $miembro_id = $_POST['miembro_id'];
-            $nombre = $_POST['nombre'];
+            $tipo_cargo_id = $_POST['tipo_cargo_id'];
+            $fecha_registro = $_POST['fecha_registro'];
+            $cargo = Cargo::create($tipo_cargo_id, $miembro_id, $ministerio_id, $fecha_registro);
 
-            $parentezco = Cargo::create($nombre, $miembro_id, $ministerio_id);
-
-            if ($parentezco) {
+            if ($cargo) {
                 // Redirige a una página de éxito o muestra un mensaje de éxito
                 header("Location: ?controller=ministerios&action=cargos&id=" . $ministerio_id);
                 exit();

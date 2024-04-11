@@ -4,29 +4,27 @@ require_once('persona.php'); // Reemplaza 'ruta_a_persona.php' con la ruta corre
 class Actividad
 {
     public $id;
-    public $nombre;
     public $fecha;
     public $horaInicio;
     public $horaFin;
-
-    public $montoTotal;
-    public function __construct($id,$nombre,$fecha,$horaInicio,$horaFin,$montoTotal) {
+    public $sacramento_id;
+    public function __construct($id,$fecha,$horaInicio,$horaFin,$sacramento_id) {
         $this->id = $id;
         $this->fecha = $fecha;
         $this->horaInicio = $horaInicio;
         $this->horaFin = $horaFin;
-        $this->montoTotal = $montoTotal;
-        $this->nombre = $nombre;
+        $this->sacramento_id = $sacramento_id;
     }
     public static function all()
     {
         $list = [];
         $db = Db::getInstance();
-        $req = $db->query('SELECT * FROM actividads;');
+        $req = $db->query('SELECT actividads.*,sacramentos.nombre as sacramento_nombre FROM actividads,sacramentos
+        WHERE actividads.sacramento_id=sacramentos.id;');
 
         // we create a list of Post objects from the database results
         foreach ($req->fetchAll() as $actividad) {
-            $list[] = new Actividad($actividad['id'],$actividad['nombre'], $actividad['fecha'], $actividad['horainicio'], $actividad['horafin'], $actividad['montototal']);
+            $list[] = ['id'=>$actividad['id'], 'fecha'=>$actividad['fecha'], 'horaInicio'=>$actividad['horainicio'], 'horaFin'=>$actividad['horafin'], 'sacramento_id'=>$actividad['sacramento_id'],'sacramento_nombre'=>$actividad['sacramento_nombre']];
         }
         return $list;
     }
@@ -41,13 +39,13 @@ class Actividad
 
         $req->execute(array('id' => $id));
         $actividad = $req->fetch();
-        $actividad =  new Actividad($actividad['id'], $actividad['nombre'], $actividad['fecha'], $actividad['horainicio'], $actividad['horafin'], $actividad['montototal']);
+        $actividad =  new Actividad($actividad['id'], $actividad['fecha'], $actividad['horainicio'], $actividad['horafin'], $actividad['sacramento_id']);
 
         return $actividad;
         //return new Miembro($miembro['id'], $miembro['fecha_registro_miembro'], $miembro['created_at'], $miembro['updated_at']);
     }
 
-    public static function update($id,$nombre, $fecha, $horaInicio, $horaFin)
+    public static function update($id, $fecha, $horaInicio, $horaFin,$sacramento_id)
     {
         $db = Db::getInstance();
         $db->beginTransaction(); // Iniciar una transacción para asegurar la integridad de los datos
@@ -55,13 +53,13 @@ class Actividad
         try {
 
             // ACTUALIZAR LOS DATOS DE LA ACTIVIDAD
-            $query = 'UPDATE actividads SET  nombre = :nombre, fecha = :fecha, horainicio = :horaInicio, horafin = :horaFin WHERE id = :id';
+            $query = 'UPDATE actividads SET fecha = :fecha, horainicio = :horaInicio, horafin = :horaFin, sacramento_id=:sacramento_id WHERE id = :id';
             $req_actividad = $db->prepare($query);
 
+            $req_actividad->bindParam(':sacramento_id', $sacramento_id);
             $req_actividad->bindParam(':fecha', $fecha);
             $req_actividad->bindParam(':horaInicio', $horaInicio);
             $req_actividad->bindParam(':horaFin', $horaFin);
-            $req_actividad->bindParam(':nombre', $nombre);
             $req_actividad->bindParam(':id', $id);
             $req_actividad->execute();
 
@@ -76,20 +74,19 @@ class Actividad
         }
     }
 
-    public static function create($nombre,$fecha, $horaInicio, $horaFin, $montoTotal)
+    public static function create($fecha, $horaInicio, $horaFin, $sacramento_id)
     {
         $db = Db::getInstance();
         $db->beginTransaction(); // Iniciar una transacción para asegurar la integridad de los datos
 
         try {
-            $query = 'INSERT INTO actividads (nombre,fecha, horainicio, horafin, montototal) VALUES (:nombre, :fecha, :horaInicio, :horaFin, :montoTotal);';
+            $query = 'INSERT INTO actividads (fecha, horainicio, horafin, sacramento_id) VALUES (:fecha, :horaInicio, :horaFin, :sacramento_id);';
             $req_actividad = $db->prepare($query);
 
-            $req_actividad->bindParam(':nombre', $nombre);
             $req_actividad->bindParam(':fecha', $fecha);
             $req_actividad->bindParam(':horaInicio', $horaInicio);
             $req_actividad->bindParam(':horaFin', $horaFin);
-            $req_actividad->bindParam(':montoTotal', $montoTotal);
+            $req_actividad->bindParam(':sacramento_id', $sacramento_id);
             $req_actividad->execute();
 
             // Confirmar la transacción

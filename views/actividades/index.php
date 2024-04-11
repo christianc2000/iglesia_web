@@ -12,31 +12,29 @@
         <table class="table table-striped" id="table" style="width:100%">
             <thead>
                 <th>ID</th>
-                <th>NOMBRE</th>
                 <th>FECHA</th>
                 <th>HORA INICIO</th>
                 <th>HORA FIN</th>
-                <th>MONTO TOTAL</th>
+                <th>Sacramento</th>
                 <th>OPCIÓN</th>
             </thead>
             <tbody>
                 <?php foreach ($actividades as $actividad) { ?>
                     <tr>
-                        <td><?php echo $actividad->id ?></td>
-                        <td><?php echo $actividad->nombre ?></td>
-                        <td><?php echo $actividad->fecha ?></td>
-                        <td><?php echo $actividad->horaInicio ?></td>
-                        <td><?php echo $actividad->horaFin ?></td>
-                        <td><?php echo $actividad->montoTotal ?></td>
+                        <td><?php echo $actividad['id'] ?></td>
+                        <td><?php echo $actividad['fecha'] ?></td>
+                        <td><?php echo $actividad['horaInicio'] ?></td>
+                        <td><?php echo $actividad['horaFin'] ?></td>
+                        <td><?php echo $actividad['sacramento_nombre'] ?></td>
                         <td>
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                     Opciones
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href='?controller=actividades&action=edit&id=<?php echo $actividad->id; ?>'><i class="fa fa-edit"></i> Editar</a></li>
-                                    <li><a class="dropdown-item" href='?controller=actividades&action=recaudacion&id=<?php echo $actividad->id; ?>'><i class="fa fa-money-bill-wave"></i> Ingreso </a></li>
-                                    <li><a class="dropdown-item" href='?controller=actividades&action=asistencia&id=<?php echo $actividad->id; ?>'><i class="fa fa-calendar"></i> Asistencia</a></li>
+                                    <li><a class="dropdown-item" href='?controller=actividades&action=edit&id=<?php echo $actividad['id']; ?>'><i class="fa fa-edit"></i> Editar</a></li>
+                                    <!-- <li><a class="dropdown-item" href='?controller=actividades&action=recaudacion&id=<?php echo $actividad['id']; ?>'><i class="fa fa-money-bill-wave"></i> Ingreso </a></li> -->
+                                    <li><a class="dropdown-item" href='?controller=actividades&action=participacion&id=<?php echo $actividad['id']; ?>'><i class="fa fa-calendar"></i> Participación</a></li>
                                 </ul>
                             </div>
                         </td>

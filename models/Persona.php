@@ -9,11 +9,10 @@ class Persona
     public $celular;
     public $direccion;
     public $correo;
-    public $tipo;
     public $sexo;
     public $fecha_nacimiento;
     public $fecha_registro;
-    public function __construct($id, $ci, $nombre, $apellido, $celular, $direccion, $correo, $tipo, $sexo, $fecha_nacimiento, $fecha_registro)
+    public function __construct($id, $ci, $nombre, $apellido, $celular, $direccion, $correo, $sexo, $fecha_nacimiento, $fecha_registro)
     {
         $this->id = $id;
         $this->ci = $ci;
@@ -22,7 +21,6 @@ class Persona
         $this->celular = $celular;
         $this->direccion = $direccion;
         $this->correo = $correo;
-        $this->tipo = $tipo;
         $this->sexo = $sexo;
         $this->fecha_nacimiento = $fecha_nacimiento;
         $this->fecha_registro = $fecha_registro;
@@ -31,24 +29,11 @@ class Persona
     {
         $list = [];
         $db = Db::getInstance();
-        $req = $db->query('SELECT * FROM personas');
+        $req = $db->query('SELECT * FROM personas;');
 
         // we create a list of Post objects from the database results
         foreach ($req->fetchAll() as $persona) {
-            $list[] = new Persona($persona['id'], $persona['ci'], $persona['nombre'], $persona['apellido'], $persona['celular'], $persona['direccion'], $persona['correo'], $persona['tipo'], $persona['sexo'], $persona['fecha_nacimiento'], $persona['fecha_registro']);
-        }
-
-        return $list;
-    }
-    public static function allMiembros()
-    {
-        $list = [];
-        $db = Db::getInstance();
-        $req = $db->query("SELECT * FROM personas WHERE personas.tipo='M';");
-
-        // we create a list of Post objects from the database results
-        foreach ($req->fetchAll() as $persona) {
-            $list[] = new Persona($persona['id'], $persona['ci'], $persona['nombre'], $persona['apellido'], $persona['celular'], $persona['direccion'], $persona['correo'], $persona['tipo'], $persona['sexo'], $persona['fecha_nacimiento'], $persona['fecha_registro']);
+            $list[] = new Persona($persona['id'], $persona['ci'], $persona['nombre'], $persona['apellido'], $persona['celular'], $persona['direccion'], $persona['correo'], $persona['sexo'], $persona['fecha_nacimiento'], $persona['fecha_registro']);
         }
 
         return $list;
@@ -56,16 +41,36 @@ class Persona
     public static function find($id)
     {
         $db = Db::getInstance();
-        // we make sure $id is an integer
+        // Asegúrate de que $id sea un entero
         $id = intval($id);
         $req = $db->prepare('SELECT * FROM personas WHERE id = :id');
-        // the query was prepared, now we replace :id with our actual $id value
+        // Reemplaza :id con el valor actual de $id
         $req->execute(array('id' => $id));
-        $persona = $req->fetch();
 
-        return new Persona($persona['id'], $persona['ci'], $persona['nombre'], $persona['apellido'], $persona['celular'], $persona['direccion'], $persona['correo'], $persona['tipo'], $persona['sexo'], $persona['fecha_nacimiento'], $persona['fecha_registro']);
+        // Verifica si la consulta tuvo éxito
+        if ($persona = $req->fetch()) {
+            // La consulta devolvió resultados, crea una instancia de Persona
+            return new Persona(
+                $persona['id'],
+                $persona['ci'],
+                $persona['nombre'],
+                $persona['apellido'],
+                $persona['celular'],
+                $persona['direccion'],
+                $persona['correo'],
+                $persona['sexo'],
+                $persona['fecha_nacimiento'],
+                $persona['fecha_registro']
+            );
+        } else {
+            // La consulta no devolvió resultados, maneja este caso
+            // Puedes lanzar una excepción, mostrar un mensaje de error, etc.
+            // Por ejemplo:
+            throw new Exception("No se encontró ninguna persona con el ID $id");
+        }
     }
-    public static function create($ci, $nombre, $apellido, $correo, $tipo, $celular, $direccion, $sexo, $fecha_nacimiento)
+
+    public static function create($ci, $nombre, $apellido, $correo, $celular, $direccion, $sexo, $fecha_nacimiento)
     {
         $db = Db::getInstance();
         $db->beginTransaction(); // Iniciar una transacción para asegurar la integridad de los datos
@@ -73,8 +78,7 @@ class Persona
         try {
             // CREAR A LA PERSONA
             // $fecha_registro = 'NOW()';
-            $fecha_registro = date('Y-m-d H:i:s');
-            $query = 'INSERT INTO personas (ci, nombre, apellido, celular, direccion, correo, tipo, sexo, fecha_nacimiento) VALUES (:ci, :nombre, :apellido, :celular, :direccion, :correo, :tipo, :sexo, :fecha_nacimiento)';
+            $query = 'INSERT INTO personas (ci, nombre, apellido, celular, direccion, correo, sexo, fecha_nacimiento) VALUES (:ci, :nombre, :apellido, :celular, :direccion, :correo, :sexo, :fecha_nacimiento)';
             $req_persona = $db->prepare($query);
 
             $req_persona->bindParam(':ci', $ci);
@@ -83,7 +87,6 @@ class Persona
             $req_persona->bindParam(':celular', $celular);
             $req_persona->bindParam(':direccion', $direccion);
             $req_persona->bindParam(':correo', $correo);
-            $req_persona->bindParam(':tipo', $tipo);
             $req_persona->bindParam(':sexo', $sexo);
             $req_persona->bindParam(':fecha_nacimiento', $fecha_nacimiento);
             // $req_persona->bindParam('fecha_registro',$fecha_registro);
@@ -98,21 +101,20 @@ class Persona
             throw $e; // Puedes manejar el error de otra manera según tus necesidades
         }
     }
-    public static function update($id, $ci, $nombre, $apellido, $correo, $tipo, $celular, $direccion, $sexo, $fecha_nacimiento)
+    public static function update($id, $ci, $nombre, $apellido, $correo, $celular, $direccion, $sexo, $fecha_nacimiento)
     {
         $db = Db::getInstance();
         $db->beginTransaction(); // Iniciar una transacción para asegurar la integridad de los datos
 
         try {
             // ACTUALIZAR LOS DATOS DE LA PERSONA
-            $query = 'UPDATE personas SET ci = :ci, nombre = :nombre, apellido = :apellido, celular = :celular, tipo=:tipo, direccion = :direccion, correo = :correo, sexo = :sexo, fecha_nacimiento = :fecha_nacimiento WHERE id = :id';
+            $query = 'UPDATE personas SET ci = :ci, nombre = :nombre, apellido = :apellido, celular = :celular, direccion = :direccion, correo = :correo, sexo = :sexo, fecha_nacimiento = :fecha_nacimiento WHERE id = :id';
             $req_persona = $db->prepare($query);
 
             $req_persona->bindParam(':ci', $ci);
             $req_persona->bindParam(':nombre', $nombre);
             $req_persona->bindParam(':apellido', $apellido);
             $req_persona->bindParam(':celular', $celular);
-            $req_persona->bindParam(':tipo', $tipo);
             $req_persona->bindParam(':direccion', $direccion);
             $req_persona->bindParam(':correo', $correo);
             $req_persona->bindParam(':sexo', $sexo);
@@ -225,8 +227,8 @@ class Persona
 
         $query = "SELECT personas.*
         FROM personas
-        LEFT JOIN asistencias ON personas.id = asistencias.persona_id AND asistencias.actividad_id = :actividad_id
-        WHERE asistencias.actividad_id IS NULL AND personas.tipo = 'M';";
+        LEFT JOIN participacions ON personas.id = participacions.persona_id AND participacions.actividad_id = :actividad_id
+        WHERE participacions.actividad_id IS NULL;";
 
         $req = $db->prepare($query);
         $req->bindParam(':actividad_id', $actividad_id, PDO::PARAM_INT);
@@ -234,7 +236,7 @@ class Persona
 
         // Recorremos los resultados de la consulta
         foreach ($req->fetchAll() as $row) {
-            $list[] = new Persona($row['id'], $row['ci'], $row['nombre'], $row['apellido'], $row['celular'], $row['direccion'], $row['correo'], $row['tipo'], $row['sexo'], $row['fecha_nacimiento'], $row['fecha_registro']);
+            $list[] = new Persona($row['id'], $row['ci'], $row['nombre'], $row['apellido'], $row['celular'], $row['direccion'], $row['correo'], $row['sexo'], $row['fecha_nacimiento'], $row['fecha_registro']);
         }
 
         return $list;

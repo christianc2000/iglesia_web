@@ -33,18 +33,6 @@
                     <input class="form-control" type="text" name="direccion" id="direccion" value="<?php echo $persona->direccion ?>" required>
                 </div>
                 <div class="col-md-6">
-                    <label for="tipo" class="form-label">TIPO</label>
-                    <select class="form-select" name="tipo" id="tipo" required>
-                        <option value="" disabled>Seleccione una opción</option>
-                        <option value="M" <?php if ($persona->tipo === "M") {
-                                                echo "selected";
-                                            } ?>>Miembro</option>
-                        <option value="F" <?php if ($persona->tipo === "V") {
-                                                echo "selected";
-                                            } ?>>Visitante</option>
-                    </select>
-                </div>
-                <div class="col-md-6">
                     <label for="sexo" class="form-label">SEXO</label>
                     <select class="form-select" name="sexo" id="sexo" required>
                         <option value="" disabled>Seleccione una opción</option>

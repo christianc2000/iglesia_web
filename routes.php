@@ -27,8 +27,8 @@ function call($controller, $action)
 // Entradas para el controlador y sus actions
 $controllers = array(
   'pages' => ['home', 'error'],
-  'personas' => ['index', 'create', 'store', 'update', 'edit', 'delete', 'parentezco', 'storeParentezco', 'deleteParentezco'],
-  'actividades' => ['index', 'create', 'store', 'edit', 'update', 'delete', 'recaudacion', 'storeRecaudacion', 'deleteRecaudacion', 'asistencia', 'storeAsistencia', 'deleteAsistencia'],
+  'personas' => ['index', 'create', 'store', 'update', 'edit', 'delete', 'parentesco', 'storeParentesco', 'deleteParentesco'],
+  'actividades' => ['index', 'create', 'store', 'edit', 'update', 'delete', 'participacion', 'storeParticipacion', 'deleteParticipacion','generarPDF'],
   'ministerios' => ['index', 'create', 'store', 'edit', 'update', 'delete','show','cargos','storeEncargado','finalizarCargoMinisterio']
 );
 

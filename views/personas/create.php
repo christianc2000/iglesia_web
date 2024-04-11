@@ -33,14 +33,6 @@
                     <input class="form-control" type="text" name="direccion" id="direccion" required>
                 </div>
                 <div class="col-md-6">
-                    <label for="tipo" class="form-label">TIPO</label>
-                    <select class="form-select" name="tipo" id="tipo" required>
-                        <option value="" selected disabled>Seleccione una opción</option>
-                        <option value="M">Miembro</option>
-                        <option value="V">Visitante</option>
-                    </select>
-                </div>
-                <div class="col-md-6">
                     <label for="sexo" class="form-label">SEXO</label>
                     <select class="form-select" name="sexo" id="sexo" required>
                         <option value="" selected disabled>Seleccione una opción</option>

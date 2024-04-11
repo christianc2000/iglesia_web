@@ -8,24 +8,29 @@
         <div class="card-body flex-column pb-4">
             <div class="row row-cols-lg-auto g-3 align-items-center">
                 <div class="col-md-12">
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="nombre">
-                        <label for="nombreInput">Nombre</label>
+                    <div class="form-floating">
+                        <select name="sacramento_id" id="sacramento_id" class="form-select" required>
+                            <option value="" selected disabled>Seleccione una opción</option>
+                            <?php foreach ($sacramentos as $sacramento) { ?>
+                                <option value=<?php echo $sacramento->id ?>><?php echo $sacramento->nombre ?></option>
+                            <?php } ?>
+                        </select>
+                        <label for="sacramentoInput">Sacramento</label>
                     </div>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-4">
                     <div class="form-floating">
                         <input type="date" class="form-control" name="fecha">
                         <label for="fechaInput">Fecha</label>
                     </div>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-4">
                     <div class="form-floating">
                         <input type="time" class="form-control" name="hora_inicio">
                         <label for="hora_inicioInput">Hora Inicio</label>
                     </div>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-4">
                     <div class="form-floating">
                         <input type="time" class="form-control" name="hora_fin">
                         <label for="hora_finInput">Hora Fin</label>
