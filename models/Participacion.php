@@ -58,7 +58,8 @@ class Participacion
 
         $id = intval($actividad_id);
         $req = $db->prepare("SELECT personas.id as persona_id,CONCAT(personas.nombre,' ',personas.apellido) as persona_nombre, sacramentos.nombre as sacramento_nombre FROM sacramentos,actividads, participacions,personas,tipo_participacions
-        WHERE actividads.id=:id AND participacions.actividad_id=:id AND participacions.tipo_participacion_id=tipo_participacions.id AND tipo_participacions.nombre='Protagonista'
+        WHERE actividads.id=:id AND participacions.actividad_id=:id AND participacions.tipo_participacion_id=tipo_participacions.id AND (tipo_participacions.nombre='Comulgado' OR tipo_participacions.nombre='Bautizado' OR tipo_participacions.nombre='Confirmado'
+        OR tipo_participacions.nombre='Esposo' OR tipo_participacions.nombre='Esposa')
         AND participacions.persona_id=personas.id AND sacramentos.id=actividads.sacramento_id;");
         $req->execute(array('id' => $actividad_id));
 

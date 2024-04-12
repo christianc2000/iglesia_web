@@ -51,7 +51,7 @@
                     </select>
                 </div>
                 <div class="col-md-4 pt-4">
-                    <button class="button-principal w-100" type="submit" <?php echo (count($personas) == 0 ? 'disabled' : ''); ?>>Marcar asistencia</button>
+                    <button class="button-principal w-100" type="submit" <?php echo (count($personas) == 0 ? 'disabled' : ''); ?>>Agregar Participante</button>
                 </div>
             </div>
         </form>

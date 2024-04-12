@@ -156,24 +156,24 @@ class ActividadController
             }
         }
     }
-    
+
     public function generarPDF()
     {
-        function salida($protagonistas){
-            $cadena="";
-            if(count($protagonistas)>1){
-                for ($i=0; $i < count($protagonistas)-1; $i++) { 
-                    if($i==0){
-                        $cadena=$cadena.$protagonistas[$i]['persona_nombre'];
-                    }else{
-                        $cadena=$cadena.', '.$protagonistas[$i]['persona_nombre'];
+        function salida($protagonistas)
+        {
+            $cadena = "";
+            if (count($protagonistas) > 1) {
+                for ($i = 0; $i < count($protagonistas) - 1; $i++) {
+                    if ($i == 0) {
+                        $cadena = $cadena . $protagonistas[$i]['persona_nombre'];
+                    } else {
+                        $cadena = $cadena . ', ' . $protagonistas[$i]['persona_nombre'];
                     }
-               
                 }
-                $cadena=$cadena." y ".$protagonistas[count($protagonistas)-1]['persona_nombre'];
+                $cadena = $cadena . " y " . $protagonistas[count($protagonistas) - 1]['persona_nombre'];
             }
-            if(count($protagonistas)==1){
-                  return $protagonistas[0]['persona_nombre'];
+            if (count($protagonistas) == 1) {
+                return $protagonistas[0]['persona_nombre'];
             }
             return $cadena;
         }
@@ -183,9 +183,17 @@ class ActividadController
         $actividad = Actividad::find($actividad_id);
         // echo $actividad->id;
         $sacramento = Sacramento::find($actividad->sacramento_id);
-        $protagonistas=Participacion::getProtagonista($actividad_id);
-        $protagonistas=salida($protagonistas);
+        $protagonistas = Participacion::getProtagonista($actividad_id);
+        $protagonistas = salida($protagonistas);
+        date_default_timezone_set('America/La_Paz');
+
+        // Obtener la fecha y hora actual
+        $fecha_actual = date('d/m/Y');
+        $hora_actual = date('H:i:s');
+        $fecha_hora_actual=$fecha_actual." ".$hora_actual;
+        // echo $protagonistas;
         // echo $sacramento->nombre;
+        // require_once('views/pdf/certificado_matrimonio.php');
         require_once('views/pdf/certificado.php');
     }
 }
