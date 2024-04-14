@@ -11,14 +11,30 @@ function call($controller, $action)
       // echo "ENTRAMOS A PERSONAS";
       $controller = new PersonaController();
       break;
+    case 'parentescos':
+      // echo "ENTRAMOS A PERSONAS";
+      $controller = new ParentescoController();
+      break;
     case 'actividades':
       // echo "ENTRAMOS A PERSONAS";
       $controller = new ActividadController();
       break;
-      case 'ministerios':
-        // echo "ENTRAMOS A PERSONAS";
-        $controller = new MinisterioController();
-        break;
+    case 'participacions':
+      // echo "ENTRAMOS A PERSONAS";
+      $controller = new ParticipacionController();
+      break;
+    case 'certificados':
+      // echo "ENTRAMOS A PERSONAS";
+      $controller = new CertificadoController();
+      break;
+    case 'ministerios':
+      // echo "ENTRAMOS A PERSONAS";
+      $controller = new MinisterioController();
+      break;
+    case 'cargos':
+      // echo "ENTRAMOS A PERSONAS";
+      $controller = new CargoController();
+      break;
   }
 
   $controller->{$action}();
@@ -27,9 +43,13 @@ function call($controller, $action)
 // Entradas para el controlador y sus actions
 $controllers = array(
   'pages' => ['home', 'error'],
-  'personas' => ['index', 'create', 'store', 'update', 'edit', 'delete', 'parentesco', 'storeParentesco', 'deleteParentesco'],
-  'actividades' => ['index', 'create', 'store', 'edit', 'update', 'delete', 'participacion', 'storeParticipacion', 'deleteParticipacion','generarPDF'],
-  'ministerios' => ['index', 'create', 'store', 'edit', 'update', 'delete','show','cargos','storeEncargado','finalizarCargoMinisterio']
+  'personas' => ['index', 'create', 'store', 'update', 'edit', 'delete'],
+  'parentescos' => ['parentesco', 'storeParentesco', 'deleteParentesco'],
+  'actividades' => ['index', 'create', 'store', 'edit', 'update', 'delete'], 
+  'participacions' => ['participacion', 'storeParticipacion', 'deleteParticipacion'],
+  'certificados'=>['generarPDF'],
+  'ministerios' => ['index', 'create', 'store', 'edit', 'update', 'delete', 'show'],
+  'cargos' => ['cargos', 'storeEncargado', 'finalizarCargoMinisterio']
 );
 
 if (array_key_exists($controller, $controllers)) {

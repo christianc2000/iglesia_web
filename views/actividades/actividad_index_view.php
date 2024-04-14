@@ -34,7 +34,7 @@
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                     <li><a class="dropdown-item" href='?controller=actividades&action=edit&id=<?php echo $actividad['id']; ?>'><i class="fa fa-edit"></i> Editar</a></li>
                                     <!-- <li><a class="dropdown-item" href='?controller=actividades&action=recaudacion&id=<?php echo $actividad['id']; ?>'><i class="fa fa-money-bill-wave"></i> Ingreso </a></li> -->
-                                    <li><a class="dropdown-item" href='?controller=actividades&action=participacion&id=<?php echo $actividad['id']; ?>'><i class="fa fa-calendar"></i> Participación</a></li>
+                                    <li><a class="dropdown-item" href='?controller=participacions&action=participacion&id=<?php echo $actividad['id']; ?>'><i class="fa fa-calendar"></i> Participación</a></li>
                                 </ul>
                             </div>
                         </td>

@@ -76,7 +76,7 @@ class Parentesco
             return true;
         } catch (PDOException $e) {
             // En caso de error, revertir la transacción
-            echo $e;
+            // echo $e;
             $db->rollback();
             throw $e; // Puedes manejar el error de otra manera según tus necesidades
         }

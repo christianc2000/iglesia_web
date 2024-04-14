@@ -3,45 +3,41 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
 <!-- contenido -->
 
-<h4>Ministerios</h4>
-<div class="card p-2">
-    <div class="card-body flex-column pb-4">
+<h4>Personas</h4>
+<div class="card vh-100 p-2">
+    <div class="card-body flex-column h-100">
         <div class="pb-4">
-            <a class="button-principal" href="?controller=ministerios&action=create">Crear Ministerio</a>
+            <a class="button-principal" href="?controller=personas&action=create">Registrar Persona</a>
+            <!-- <a class="button-cancelar" href="?controller=personas&action=index_suspended">personas suspendidos</a> -->
         </div>
         <table class="table table-striped" id="table" style="width:100%">
             <thead>
-                <th>ID</th>
+                <th>CI</th>
                 <th>NOMBRE</th>
-                <th>ESTADO</th>
+                <th>APELLIDO</th>
+                <th>CELULAR</th>
+                <th>CORREO</th>
+                <th>REGISTRO</th>
                 <th>OPCIÓN</th>
             </thead>
             <tbody>
-
-                <?php foreach ($ministerios as $ministerio) { ?>
+                <?php foreach ($personas as $persona) { ?>
                     <tr>
-                        <td><?php echo $ministerio->id ?></td>
-                        <td><?php echo $ministerio->nombre ?></td>
-                        <td class="p-2" style="align-items: center;">
-                            <?php if ($ministerio->estado) { ?>
-                                <div style="background-color: #0FFFC8;font-weight: 700; text-align: center; margin: 5px; border-radius: 10px;">
-                                    HABILITADO
-                                </div>
-                            <?php } else { ?>
-                                <div style="background-color: #241910; color:white;font-weight: 700; text-align: center; margin: 5px; border-radius: 10px;">
-                                    DESHABILITADO
-                                </div>
-                            <?php } ?>
-                        </td>
+                        <td><?php echo $persona->ci ?></td>
+                        <td><?php echo $persona->nombre ?></td>
+                        <td><?php echo $persona->apellido ?></td>
+                        <td><?php echo $persona->celular ?></td>
+                        <td><?php echo $persona->correo ?></td>
+                        <td><?php echo (DateTime::createFromFormat('Y-m-d H:i:s.u', $persona->fecha_registro))->format('Y-m-d H:i:s'); ?></td>
                         <td>
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                     Opciones
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href='?controller=ministerios&action=show&id=<?php echo $ministerio->id;?>'><i class="fas fa-eye"></i> Ver</a></li>
-                                    <li><a class="dropdown-item" href='?controller=ministerios&action=edit&id=<?php echo $ministerio->id;?>'><i class="fa fa-edit"></i> Editar</a></li>
-                                    <li><a class="dropdown-item" href='?controller=ministerios&action=cargos&id=<?php echo $ministerio->id;?>'><i class="fas fa-user-tie"></i> Encargados</a></li>
+                                    <li><a class="dropdown-item" href='?controller=personas&action=edit&id=<?php echo $persona->id; ?>'><i class="fa fa-edit"></i> Editar</a></li>
+                                    <li><a class="dropdown-item" href="?controller=parentescos&action=parentesco&id=<?php echo $persona->id; ?>"><i class="fa fa-layer-group"></i> Parentesco</a></li>
+                                    <li><a class="dropdown-item" href='?controller=personas&action=delete&id=<?php echo $persona->id; ?>'><i class="fa fa-trash"></i> Eliminar</a></li>
                                 </ul>
                             </div>
                         </td>

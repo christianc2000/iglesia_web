@@ -5,12 +5,12 @@
 
 <div class="d-flex align-items-center">
     <a href="?controller=ministerios&action=index" style="color: black"><i class="fa fa-lg fa-arrow-left"></i></a>
-    <h4 class="px-2"><?php echo $ministerio->nombre; ?></h4>
+    <h4 class="px-2"><?php echo $ministerio->nombre."/Cargos"; ?></h4>
 </div>
 
 <div class="card vh-100 p-2">
     <div class="card-body flex-column h-100">
-        <form action="?controller=ministerios&action=storeEncargado" method="POST">
+        <form action="?controller=cargos&action=storeEncargado" method="POST">
             <input type="hidden" name="id" id="id" value="<?php echo $ministerio->id; ?>" style="display:block">
             <div class="row g-3">
                 <div class="col-md-3">
@@ -60,7 +60,7 @@
                             <td><?php echo $mc['persona_nombrecompleto']?></td>
                             <td><?php echo $mc['fecha_registro'];?></td>
                             <td>
-                                <form action="?controller=ministerios&action=finalizarCargoMinisterio" method="POST">
+                                <form action="?controller=cargos&action=finalizarCargoMinisterio" method="POST">
                                     <input type="hidden" name="ministerio_id" id="ministerio_id" value="<?php echo $ministerio->id; ?>" style="display:block">
                                     <input type="hidden" name="cargo_id" id="cargo_id" value="<?php echo $mc['id']; ?>" style="display:block">
                                     <button type="submit" class="btn btn-dark">Finalizar Cargo</button>

@@ -1,6 +1,4 @@
 <?php
-require_once('persona.php'); // Reemplaza 'ruta_a_persona.php' con la ruta correcta al archivo de la clase Persona
-
 class Actividad
 {
     public $id;

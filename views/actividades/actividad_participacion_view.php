@@ -3,14 +3,14 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
 <!-- contenido -->
 
-<div class="d-flex align-items-center">
+<div class="d-flex align-items-center" style="margin-bottom: 5px;">
     <a href="?controller=actividades&action=index" style="color: black"><i class="fa fa-lg fa-arrow-left"></i></a>
-    <h4 class="px-2">Actividad/<?php echo $sacramento->nombre ?></h4> <a href="?controller=actividades&&action=generarPDF&&id=<?php echo $actividad->id?>">Generar PDF</a>
+    <h4 class="px-2">Actividad/<?php echo $sacramento->nombre ?></h4> <a class="btn btn-primary" href="?controller=certificados&&action=generarPDF&&id=<?php echo $actividad->id?>"><i class="fas fa-certificate"></i> Certificado</a>
 </div>
 
 <div class="card p-2">
     <div class="card-body flex-column pb-4">
-        <form action="?controller=actividades&action=storeParticipacion" method="POST">
+        <form action="?controller=participacions&action=storeParticipacion" method="POST">
             <input type="hidden" name="actividad_id" id="actividad_id" value="<?php echo $actividad->id; ?>" style="display:block">
             <div class="row g-3">
                 <div class="col-md-12 row" style="background-color: #241910;">
@@ -68,7 +68,7 @@
 
                         <tr>
                             <td>
-                                <form action="?controller=actividades&action=deleteParticipacion" method="POST">
+                                <form action="?controller=participacions&action=deleteParticipacion" method="POST">
                                     <input type="hidden" name="persona_id" value="<?php echo $participacion['persona_id']; ?>">
                                     <input type="hidden" name="actividad_id" value="<?php echo $participacion['actividad_id']; ?>">
                                     <button type="submit" class="btn btn-warning"><i class="fa fa-trash"></i></button>

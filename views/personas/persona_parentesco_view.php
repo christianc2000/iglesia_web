@@ -10,7 +10,7 @@
 
 <div class="card vh-100 p-2">
     <div class="card-body flex-column h-100">
-        <form action="?controller=personas&action=storeParentesco" method="POST">
+        <form action="?controller=parentescos&action=storeParentesco" method="POST">
             <input type="hidden" name="personaA_id" id="personaA_id" value="<?php echo $persona->id; ?>" style="display:block">
             <div class="row g-3">
                 <div class="col-md-4">
@@ -51,7 +51,7 @@
                             <td><?php echo $pariente['pariente_nombre'] ?></td>
                             <td><?php echo $pariente['parentesco'] ?></td>
                             <td>
-                                <form action="?controller=personas&action=deleteParentesco" method="POST">
+                                <form action="?controller=parentescos&action=deleteParentesco" method="POST">
                                     <input type="hidden" name="personaA_id" id="personaA_id" value="<?php echo $persona->id; ?>" style="display:block">
                                     <input type="hidden" name="personaB_id" id="personaB_id" value="<?php echo $pariente['pariente_id']; ?>" style="display:block">
                                     <button type="submit" class="btn btn-dark">Eliminar</button>

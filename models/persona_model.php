@@ -25,6 +25,7 @@ class Persona
         $this->fecha_nacimiento = $fecha_nacimiento;
         $this->fecha_registro = $fecha_registro;
     }
+
     public static function all()
     {
         $list = [];
@@ -159,67 +160,6 @@ class Persona
         }
     }
 
-    // public static function misParentezcos($id)
-    // {
-    //     $list = [];
-    //     $db = Db::getInstance();
-
-    //     // Asegurémonos de que $parentezco_id sea un entero
-    //     $id = intval($id);
-    //     $query =  "SELECT
-    //     CASE
-    //         WHEN parentezcos.personaA_id = :id THEN personasB.id
-    //         ELSE personasA.id
-    //     END AS id,
-    //     CASE
-    //         WHEN parentezcos.personaA_id = :id THEN CONCAT(personasB.nombre, ' ', personasB.apellido)
-    //         ELSE CONCAT(personasA.nombre, ' ', personasA.apellido)
-    //     END AS nombre_completo,
-    //     CASE
-    //         WHEN parentezcos.personaA_id = :id THEN personasB.ci
-    //         ELSE personasA.ci
-    //     END AS ci,
-    //     parentezcos.parentezco,
-    //     parentezcos.personaA_id,
-    //     parentezcos.personaB_id
-    // FROM parentezcos
-    // JOIN personas AS personasA ON parentezcos.personaA_id = personasA.id
-    // JOIN personas AS personasB ON parentezcos.personaB_id = personasB.id
-    // WHERE parentezcos.personaA_id = :id
-    // UNION
-    // SELECT
-    //     CASE
-    //         WHEN parentezcos.personaB_id = :id THEN personasA.id
-    //         ELSE personasB.id
-    //     END AS id,
-    //     CASE
-    //         WHEN parentezcos.personaB_id = :id THEN CONCAT(personasA.nombre, ' ', personasA.apellido)
-    //         ELSE CONCAT(personasB.nombre, ' ', personasB.apellido)
-    //     END AS nombre_completo,
-    //     CASE
-    //         WHEN parentezcos.personaB_id = :id THEN personasA.ci
-    //         ELSE personasB.ci
-    //     END AS ci,
-    //     parentezcos.parentezco,
-    //     parentezcos.personaA_id,
-    //     parentezcos.personaB_id
-    // FROM parentezcos
-    // JOIN personas AS personasA ON parentezcos.personaA_id = personasA.id
-    // JOIN personas AS personasB ON parentezcos.personaB_id = personasB.id
-    // WHERE parentezcos.personaB_id = :id;    
-    //     ";
-    //     $stmt = $db->prepare($query);
-    //     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-    //     $stmt->execute();
-    //     foreach ($stmt->fetchAll() as $persona) {
-    //         $list[] = ['pariente_id' => $persona['id'], 'pariente_ci'=>$persona['ci'], 'pariente_nombre' => $persona['nombre_completo'], 'parentezco' => $persona['parentezco']];
-    //     }
-
-
-    //     // Confirmar la transacción si todo fue exitoso
-    //     // $db->commit();
-    //     return $list;
-    // }
     public static function allPersonAsistencia($actividad_id)
     {
         $list = [];

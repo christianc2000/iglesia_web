@@ -2,19 +2,19 @@
 class Cargo
 {
     public $id;
-    public $nombre;
 
     public $fecha_registro;
     public $fecha_finalizado;
     public $persona_id;
 
     public $ministerio_id;
+    public $tipo_cargo_id;
 
 
-    public function __construct($id, $nombre, $persona_id, $ministerio_id, $fecha_finalizado, $fecha_registro)
+    public function __construct($id, $persona_id, $ministerio_id, $tipo_cargo_id, $fecha_finalizado, $fecha_registro)
     {
         $this->id = $id;
-        $this->nombre = $nombre;
+        $this->tipo_cargo_id = $tipo_cargo_id;
         $this->fecha_registro = $fecha_registro;
         $this->fecha_finalizado = $fecha_finalizado;
         $this->persona_id = $persona_id;

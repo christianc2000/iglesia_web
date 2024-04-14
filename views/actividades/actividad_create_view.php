@@ -1,5 +1,5 @@
 <div class="d-flex align-items-center">
-    <a href="?controller=actividads&action=index" style="color: black"><i class="fa fa-lg fa-arrow-left"></i></a>
+    <a href="?controller=actividades&action=index" style="color: black"><i class="fa fa-lg fa-arrow-left"></i></a>
     <h4 class="px-2">Actividades/crear</h4>
 </div>
 
