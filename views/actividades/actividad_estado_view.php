@@ -31,7 +31,7 @@
                 <input type="hidden" name="actividad_id" value=<?php echo "" . $actividad->id ?>>
 
             </div>
-            <div class="card-footer" style="display: flex; justify-content: flex-end;">
+            <div class="card-footer py-4" style="display: flex; justify-content: flex-end;">
                 <div class="row px-2">
                     <div class="col-12">
                         <button type="submit" class="button-principal btn-sm">Guardar</button>
