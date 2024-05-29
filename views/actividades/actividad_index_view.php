@@ -15,7 +15,8 @@
                 <th>FECHA</th>
                 <th>HORA INICIO</th>
                 <th>HORA FIN</th>
-                <th>Sacramento</th>
+                <th>ESTADO</th>
+                <th>SACRAMENTO</th>
                 <th>OPCIÓN</th>
             </thead>
             <tbody>
@@ -25,6 +26,7 @@
                         <td><?php echo $actividad['fecha'] ?></td>
                         <td><?php echo $actividad['horaInicio'] ?></td>
                         <td><?php echo $actividad['horaFin'] ?></td>
+                        <td><div style="text-align:center;width:auto;padding:8px; border-radius: 10px;background:<?php echo ($actividad['estado']=='Pendiente'?'#448EF6':($actividad['estado']=="En progreso"?'#04CC00':($actividad['estado']=="Completado"?'#000000':($actividad['estado']=="Suspendido"?'#FFCD29':'#FF0303'))))?>; color:white"><?php echo $actividad['estado'] ?></div></td>
                         <td><?php echo $actividad['sacramento_nombre'] ?></td>
                         <td>
                             <div class="dropdown">
@@ -35,6 +37,7 @@
                                     <li><a class="dropdown-item" href='?controller=actividades&action=edit&id=<?php echo $actividad['id']; ?>'><i class="fa fa-edit"></i> Editar</a></li>
                                     <!-- <li><a class="dropdown-item" href='?controller=actividades&action=recaudacion&id=<?php echo $actividad['id']; ?>'><i class="fa fa-money-bill-wave"></i> Ingreso </a></li> -->
                                     <li><a class="dropdown-item" href='?controller=participacions&action=participacion&id=<?php echo $actividad['id']; ?>'><i class="fa fa-calendar"></i> Participación</a></li>
+                                    <li><a class="dropdown-item" href='?controller=actividades&action=estado&id=<?php echo $actividad['id']; ?>'><i class="fa fa-exchange-alt"></i> Estado</a></li>
                                 </ul>
                             </div>
                         </td>

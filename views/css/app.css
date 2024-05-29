@@ -64,3 +64,23 @@ thead {
   color: white;
   /* Cambia el color del texto si es necesario */
 }
+
+/* Estilos para el contenedor de los estados */
+.estado-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 50px;
+}
+
+/* Estilos para los iconos de estado */
+.estado {
+  font-size: 36px;
+  color: #333;
+}
+
+/* Estilos para las flechas de transición */
+.flecha {
+  font-size: 24px;
+  color: #666;
+}

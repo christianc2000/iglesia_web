@@ -5,6 +5,7 @@ function call($controller, $action)
 
   switch ($controller) {
     case 'pages':
+      
       $controller = new PagesController();
       break;
     case 'personas':
@@ -45,7 +46,7 @@ $controllers = array(
   'pages' => ['home', 'error'],
   'personas' => ['index', 'create', 'store', 'update', 'edit', 'delete'],
   'parentescos' => ['parentesco', 'storeParentesco', 'deleteParentesco'],
-  'actividades' => ['index', 'create', 'store', 'edit', 'update', 'delete'], 
+  'actividades' => ['index', 'create', 'store', 'edit', 'update', 'delete','estado','storeEstado'], 
   'participacions' => ['participacion', 'storeParticipacion', 'deleteParticipacion'],
   'certificados'=>['generarPDF'],
   'ministerios' => ['index', 'create', 'store', 'edit', 'update', 'delete', 'show'],
