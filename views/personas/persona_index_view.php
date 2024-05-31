@@ -3,11 +3,11 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
 <!-- contenido -->
 
-<h4>Personas</h4>
+<h4>Miembros</h4>
 <div class="card vh-100 p-2">
     <div class="card-body flex-column h-100">
         <div class="pb-4">
-            <a class="button-principal" href="?controller=personas&action=create">Registrar Persona</a>
+            <a class="button-principal" href="?controller=personas&action=create">Registrar Miembro</a>
             <!-- <a class="button-cancelar" href="?controller=personas&action=index_suspended">personas suspendidos</a> -->
         </div>
         <table class="table table-striped" id="table" style="width:100%">

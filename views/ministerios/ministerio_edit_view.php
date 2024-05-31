@@ -1,6 +1,6 @@
 <div class="d-flex align-items-center">
     <a href="?controller=ministerios&action=index" style="color: black"><i class="fa fa-lg fa-arrow-left"></i></a>
-    <h4 class="px-2">Ministerio/Editar/<?php echo $ministerio->nombre ?></h4>
+    <h4 class="px-2">Ministerio | Editar | <?php echo $ministerio->nombre ?></h4>
 </div>
 
 <div class="card p-2">

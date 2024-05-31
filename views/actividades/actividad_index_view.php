@@ -11,12 +11,11 @@
         </div>
         <table class="table table-striped" id="table" style="width:100%">
             <thead>
-                <th>ID</th>
+                <th>CODIGO</th>
                 <th>FECHA</th>
-                <th>HORA INICIO</th>
-                <th>HORA FIN</th>
-                <th>ESTADO</th>
+                <th>HORARIO</th>
                 <th>SACRAMENTO</th>
+                <th>ESTADO</th>
                 <th>OPCIÓN</th>
             </thead>
             <tbody>
@@ -24,17 +23,17 @@
                     <tr>
                         <td><?php echo $actividad['id'] ?></td>
                         <td><?php echo $actividad['fecha'] ?></td>
-                        <td><?php echo $actividad['horaInicio'] ?></td>
-                        <td><?php echo $actividad['horaFin'] ?></td>
-                        <td><div style="text-align:center;width:auto;padding:8px; border-radius: 10px;background:<?php echo ($actividad['estado']=='Pendiente'?'#448EF6':($actividad['estado']=="En progreso"?'#04CC00':($actividad['estado']=="Completado"?'#000000':($actividad['estado']=="Suspendido"?'#FFCD29':'#FF0303'))))?>; color:white"><?php echo $actividad['estado'] ?></div></td>
+                        <td><?php echo $actividad['horaInicio']." - ".$actividad['horaFin'] ?></td>
                         <td><?php echo $actividad['sacramento_nombre'] ?></td>
+                        <td><div style="text-align:center;width:auto;padding:8px; border-radius: 10px;background:<?php echo ($actividad['estado']=='Pendiente'?'#448EF6':($actividad['estado']=="En progreso"?'#04CC00':($actividad['estado']=="Completado"?'#000000':($actividad['estado']=="Suspendido"?'#FFCD29':'#FF0303'))))?>; color:white"><?php echo $actividad['estado'] ?></div></td>
+                        
                         <td>
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                     Opciones
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href='?controller=actividades&action=edit&id=<?php echo $actividad['id']; ?>'><i class="fa fa-edit"></i> Editar</a></li>
+                                    <li style="display:<?php echo (($actividad['estado_id']==3)||($actividad['estado_id']==5)?'none':'block')?>"><a class="dropdown-item" href='?controller=actividades&action=edit&id=<?php echo $actividad['id']; ?>'><i class="fa fa-edit"></i> Editar</a></li>
                                     <!-- <li><a class="dropdown-item" href='?controller=actividades&action=recaudacion&id=<?php echo $actividad['id']; ?>'><i class="fa fa-money-bill-wave"></i> Ingreso </a></li> -->
                                     <li><a class="dropdown-item" href='?controller=participacions&action=participacion&id=<?php echo $actividad['id']; ?>'><i class="fa fa-calendar"></i> Participación</a></li>
                                     <li><a class="dropdown-item" href='?controller=actividades&action=estado&id=<?php echo $actividad['id']; ?>'><i class="fa fa-exchange-alt"></i> Estado</a></li>
