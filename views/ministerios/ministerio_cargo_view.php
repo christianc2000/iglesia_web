@@ -5,7 +5,7 @@
 
 <div class="d-flex align-items-center">
     <a href="?controller=ministerios&action=index" style="color: black"><i class="fa fa-lg fa-arrow-left"></i></a>
-    <h4 class="px-2"><?php echo $ministerio->nombre."/Cargos"; ?></h4>
+    <h4 class="px-2"><?php echo "Cargos | ".$ministerio->nombre; ?></h4>
 </div>
 
 <div class="card vh-100 p-2">

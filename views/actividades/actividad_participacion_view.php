@@ -5,7 +5,7 @@
 
 <div class="d-flex align-items-center" style="margin-bottom: 5px;">
     <a href="?controller=actividades&action=index" style="color: black"><i class="fa fa-lg fa-arrow-left"></i></a>
-    <h4 class="px-2">Actividad/<?php echo $sacramento->nombre ?></h4> <a class="btn btn-primary" href="?controller=certificados&&action=generarPDF&&id=<?php echo $actividad->id?>"><i class="fas fa-certificate"></i> Certificado</a>
+    <h4 class="px-2">Actividad | <?php echo $sacramento->nombre ?></h4> <a class="btn btn-primary" href="?controller=certificados&&action=generarCertificado&&id=<?php echo $actividad->id ?>"><i class="fas fa-certificate"></i> Certificado</a>
 </div>
 
 <div class="card p-2">
@@ -14,21 +14,29 @@
             <input type="hidden" name="actividad_id" id="actividad_id" value="<?php echo $actividad->id; ?>" style="display:block">
             <div class="row g-3">
                 <div class="col-md-12 row" style="background-color: #241910;">
-                    <div class="col-md-4">
+                    <div class="col-md-1">
+                        <label class="form-label" style="color:white">Código </label>
+                        <p class="form-control"><?php echo $actividad->id ?></p>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label" style="color:white">Estado </label>
+                        <p class="form-control" style="background:<?php echo ($actividad->estado_id == 1 ? '#448EF6' : ($actividad->estado_id == 2 ? '#04CC00' : ($actividad->estado_id == 3 ? '#000000' : ($actividad->estado_id == 4 ? '#FFCD29' : '#FF0303')))) ?>; color:white"><?php echo ($actividad->estado_id == 1 ? 'Pendiente' : ($actividad->estado_id == 2 ? 'En progreso' : ($actividad->estado_id == 3 ? 'Completado' : ($actividad->estado_id == 4 ? 'Suspendido' : 'Cancelado')))) ?> </p>
+                    </div>
+                    <div class="col-md-3">
                         <label class="form-label" style="color:white">Fecha </label>
                         <p class="form-control"><?php echo $actividad->fecha ?></p>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <label class="form-label" style="color:white">Hora Inicio </label>
                         <p class="form-control"><?php echo $actividad->horaInicio ?></p>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <label class="form-label" style="color:white">Hora Fin </label>
                         <p class="form-control"><?php echo $actividad->horaFin ?></p>
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-4" style="display:<?php echo (($actividad->estado_id == 3) || ($actividad->estado_id == 4) || ($actividad->estado_id == 5) ? 'none' : 'block') ?>">
                     <label for="miembro" class="form-label">Persona</label>
                     <select name="persona_id" id="persona_id" class="form-select" required>
                         <?php if (count($personas) > 0) { ?>
@@ -41,7 +49,7 @@
                         <?php } ?>
                     </select>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" style="display:<?php echo (($actividad->estado_id == 3) || ($actividad->estado_id == 4) || ($actividad->estado_id == 5) ? 'none' : 'block') ?>">
                     <label for="tipo_participacion_id" class="form-label">Tipo de Participación</label>
                     <select name="tipo_participacion_id" id="tipo_participacion_id" class="form-select" required>
                         <option value="" selected disabled>Seleccione una opción</option>
@@ -50,15 +58,15 @@
                         <?php } ?>
                     </select>
                 </div>
-                <div class="col-md-4 pt-4">
-                    <button class="button-principal w-100" type="submit" <?php echo (count($personas) == 0 ? 'disabled' : ''); ?>>Agregar Participante</button>
+                <div class="col-md-4 pt-4" style="display:<?php echo (($actividad->estado_id == 3) || ($actividad->estado_id == 4) || ($actividad->estado_id == 5) ? 'none' : 'block') ?>">
+                    <button class="button-principal w-100" type="submit" <?php echo (count($personas) == 0 ? 'disabled' : '') ?>>Agregar Participante</button>
                 </div>
             </div>
         </form>
         <div class="pt-4">
             <table class="table table-striped col-md-12" id="table" style="width:100%">
                 <thead>
-                    <th></th>
+                    <th style="display:<?php echo (($actividad->estado_id == 3) || ($actividad->estado_id == 4) || ($actividad->estado_id == 5) ? 'none' : '') ?>"></th>
                     <th>FECHA</th>
                     <th>PARTICIPANTE</th>
                     <th>TIPO DE PARTICIPACIÓN</th>
@@ -67,11 +75,11 @@
                     <?php foreach ($participacions as $participacion) { ?>
 
                         <tr>
-                            <td>
+                            <td style="display:<?php echo (($actividad->estado_id == 3) || ($actividad->estado_id == 4) || ($actividad->estado_id == 5) ? 'none' : 'block') ?>">
                                 <form action="?controller=participacions&action=deleteParticipacion" method="POST">
                                     <input type="hidden" name="persona_id" value="<?php echo $participacion['persona_id']; ?>">
                                     <input type="hidden" name="actividad_id" value="<?php echo $participacion['actividad_id']; ?>">
-                                    <button type="submit" class="btn btn-warning"><i class="fa fa-trash"></i></button>
+                                    <button type="<?php echo (($actividad->estado_id == 3) || ($actividad->estado_id == 4) || ($actividad->estado_id == 5) ? 'button' : 'submit') ?>" class="btn btn-warning"><i class="fa fa-trash"></i></button>
                                 </form>
                             </td>
                             <td><?php echo (DateTime::createFromFormat('Y-m-d H:i:s.u', $participacion['fecha_registro']))->format('Y-m-d H:i:s'); ?></td>

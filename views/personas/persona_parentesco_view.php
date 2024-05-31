@@ -5,7 +5,7 @@
 
 <div class="d-flex align-items-center">
     <a href="?controller=personas&action=index" style="color: black"><i class="fa fa-lg fa-arrow-left"></i></a>
-    <h4 class="px-2">Persona/Parentezco/<?php echo $persona->nombre . " " . $persona->apellido; ?></h4>
+    <h4 class="px-2">Miembro | Parentezco | <?php echo $persona->nombre . " " . $persona->apellido; ?></h4>
 </div>
 
 <div class="card vh-100 p-2">
@@ -14,7 +14,7 @@
             <input type="hidden" name="personaA_id" id="personaA_id" value="<?php echo $persona->id; ?>" style="display:block">
             <div class="row g-3">
                 <div class="col-md-4">
-                    <label for="miembro" class="form-label">Persona</label>
+                    <label for="miembro" class="form-label">Miembro</label>
                     <select name="personaB_id" id="personaB_id" class="form-select" required>
                         <option value="" selected disabled>Seleccione una opción</option>
                         <?php foreach ($personas as $p) { ?>

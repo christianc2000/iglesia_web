@@ -24,7 +24,7 @@ class Actividad
 
         // we create a list of Post objects from the database results
         foreach ($req->fetchAll() as $actividad) {
-            $list[] = ['id'=>$actividad['id'], 'fecha'=>$actividad['fecha'], 'horaInicio'=>$actividad['horainicio'], 'horaFin'=>$actividad['horafin'], 'sacramento_id'=>$actividad['sacramento_id'],'sacramento_nombre'=>$actividad['sacramento_nombre'],'estado'=>$actividad['estado_nombre']];
+            $list[] = ['id'=>$actividad['id'], 'fecha'=>$actividad['fecha'], 'horaInicio'=>$actividad['horainicio'], 'horaFin'=>$actividad['horafin'], 'sacramento_id'=>$actividad['sacramento_id'],'sacramento_nombre'=>$actividad['sacramento_nombre'],'estado_id'=>$actividad['estado_id'],'estado'=>$actividad['estado_nombre']];
         }
         return $list;
     }
@@ -45,7 +45,7 @@ class Actividad
         //return new Miembro($miembro['id'], $miembro['fecha_registro_miembro'], $miembro['created_at'], $miembro['updated_at']);
     }
 
-    public static function update($id, $nombre, $fecha, $horaInicio, $horaFin, $sacramento_id)
+    public static function update($id, $fecha, $horaInicio, $horaFin, $sacramento_id)
     {
         $db = Db::getInstance();
         $db->beginTransaction(); // Iniciar una transacción para asegurar la integridad de los datos
@@ -53,12 +53,11 @@ class Actividad
         try {
 
             // ACTUALIZAR LOS DATOS DE LA ACTIVIDAD
-            $query = 'UPDATE actividads SET nombre=:nombre fecha = :fecha, horainicio = :horaInicio, horafin = :horaFin, sacramento_id=:sacramento_id WHERE id = :id';
+            $query = 'UPDATE actividads SET fecha = :fecha, horainicio = :horaInicio, horafin = :horaFin, sacramento_id=:sacramento_id WHERE id = :id';
             $req_actividad = $db->prepare($query);
 
 
             $req_actividad->bindParam(':sacramento_id', $sacramento_id);
-            $req_actividad->bindParam(':nombre', $nombre);
             $req_actividad->bindParam(':fecha', $fecha);
             $req_actividad->bindParam(':horaInicio', $horaInicio);
             $req_actividad->bindParam(':horaFin', $horaFin);

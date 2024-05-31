@@ -31,7 +31,7 @@
               <a class="nav-link" aria-current="page" href='/'>Inicio</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" aria-current="personas" href='?controller=personas&action=index'>Personas</a>
+              <a class="nav-link" aria-current="personas" href='?controller=personas&action=index'>Miembro</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="?controller=actividades&action=index">Actividades</a>

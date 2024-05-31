@@ -48,7 +48,7 @@ $controllers = array(
   'parentescos' => ['parentesco', 'storeParentesco', 'deleteParentesco'],
   'actividades' => ['index', 'create', 'store', 'edit', 'update', 'delete','estado','storeEstado'], 
   'participacions' => ['participacion', 'storeParticipacion', 'deleteParticipacion'],
-  'certificados'=>['generarPDF'],
+  'certificados'=>['generarCertificado','exportarCertificado'],
   'ministerios' => ['index', 'create', 'store', 'edit', 'update', 'delete', 'show'],
   'cargos' => ['cargos', 'storeEncargado', 'finalizarCargoMinisterio']
 );
